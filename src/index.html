@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>My Tasks</title>
 </head>
 <body>
 
     <form>
-        <label>Título</label>
+        <label>Título:</label>
         <input type="text" name="title" id="taskTitle">
-        <label>Descrição</label>
+        <label>Descrição:</label>
         <textarea name="taskDescription" rows="10" cols="50">Insira a descrição da sua tarefa aqui</textarea>
         <input type="submit" value="Submit">
-
+        
+        <input type="date" value="dateTask">
+        <label>Data para tarefa:</label>
     </form>
     
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $.ajax({
+    url: "http://localhost:8080/tasks",
+    type: 'GET',
+    success: function(res) {
+        console.log(res);
+        alert(res);
+    }
+});
+    </script>
 </body>
 </html>
