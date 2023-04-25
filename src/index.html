@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
     <title>My Tasks</title>
 </head>
-<body>
+<body onclick="fetchTasks()">
 
     <form>
         <label>Título:</label>
@@ -16,20 +15,14 @@
         <textarea name="taskDescription" rows="10" cols="50">Insira a descrição da sua tarefa aqui</textarea>
         <input type="submit" value="Submit">
         
-        <input type="date" value="dateTask">
+        <input type="date" value="yyyy-MM-dd">
         <label>Data para tarefa:</label>
+        <button type="submit">Criar tarefa</button>
     </form>
-    
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script>
-        $.ajax({
-    url: "http://localhost:8080/tasks",
-    type: 'GET',
-    success: function(res) {
-        console.log(res);
-        alert(res);
-    }
-});
-    </script>
+
+   
+    <div id="tasksDiv">
+    </div>
+    <script type="text/javascript" src="../js/index.js" defer></script>
 </body>
 </html>
