@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tasks</title>
+    <script type="text/javascript" src="../js/index.js" defer></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
-<body onclick="fetchTasks()">
 
-    <form>
-        <label>Título:</label>
+<body onload="listarTarefas()">
+<h1>My Tasks</h1>
+<div>
+    <form class="mainForm">
+        <label class="labelField">Título:</label>
         <input type="text" name="title" id="taskTitle">
-        <label>Descrição:</label>
-        <textarea name="taskDescription" rows="10" cols="50">Insira a descrição da sua tarefa aqui</textarea>
-        <input type="submit" value="Submit">
-        
-        <input type="date" value="yyyy-MM-dd">
-        <label>Data para tarefa:</label>
-        <button type="submit">Criar tarefa</button>
+        <label class="labelField">Descrição:</label>
+        <textarea name="taskDescription" rows="10" cols="50" class="tasksTextarea">Insira a descrição da sua tarefa aqui</textarea>
+        <input type="date" value="yyyy-MM-dd" class="labelField">
+        <label class="labelField">Data para tarefa:</label>
+        <button type="submit" onclick="criarTarefa()" class="buttonForm">Criar tarefa</button>
     </form>
+</div>
 
-   
     <div id="tasksDiv">
     </div>
-    <script type="text/javascript" src="../js/index.js" defer></script>
 </body>
+
 </html>
