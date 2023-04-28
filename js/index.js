@@ -27,4 +27,17 @@ function listarTarefas() {
 
 function criarTarefa() {
   console.log("Criar tarefa");
+  var form = $(".mainForm").serializeArray();
+  var obj = {"title": form[0].value, "description": form[1].value, "deadline": form[2].value}
+  var string = JSON.stringify(obj);
+  $.ajax({
+    async: true,
+    type: "POST",
+    url: "http://localhost:8080/tasks" + "/task/create",
+    contentType: "application/json",
+    data: string,
+    success: function(data) {
+    console.log(data);
+    }
+  });
 }
