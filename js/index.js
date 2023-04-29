@@ -1,4 +1,5 @@
 var tasksDiv = document.getElementById("tasksDiv");
+var urlBase = "http://localhost:8080/tasks"
 
 function listarTarefas() {
   $.ajax({
@@ -25,27 +26,25 @@ function listarTarefas() {
   });
 }
 
-function criarTarefa() {
-  var form = $("form").serializeArray();
-  var obj = {"title": form[0].value, "description": form[1].value, "deadline": form[2].value}
-  var string = JSON.stringify(obj);
+function criarTarefa(){
+  var form = $("#Idform").serializeArray();
+  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
+  var objJson= JSON.stringify(obj);
   $.ajax({
-    async: true,
-    type: "POST",
-    url: "http://localhost:8080/tasks" + "/task/create",
-    contentType: "application/json",
-    data: string,
-    success: function(data, event) {
-      event.preventDefault();
-      const newTasks = document.getElementById("newTasks");
-      var ul = document.createElement("ul");
-      for(var i in data) {
-        var li = document.createElement("li");
-        li.innerHTML = JSON.stringify(data[i].deadline);
-        ul.appendChild(li);
-        newTasks.appendChild(ul);
+      async: true,
+      type: "POST",
+      url: urlBase + "/task/create",
+      contentType: "application/json",
+      data: objJson,
+      success: function(data)
+      {
+        console.log(data);
+        window.location.reload();
+      },
+      error: function(err)
+      {
+        console.log(err);
       }
-    console.log(data);
-    }
   });
-}
+};
+

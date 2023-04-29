@@ -1,7 +1,8 @@
 .mainForm {
-  
+  max-width: fit-content;
+  margin: auto;
 }
- body {
+ body, *{
     font-family: 'Roboto', sans-serif;
 }
 
@@ -12,16 +13,28 @@
 
 .buttonForm {
     background-color: burlywood;
-    border-radius: 40px;
+    border-radius: 50px;
     border-color: burlywood;
-   
-}
-.tasksTextarea{
-   margin-left: 30px;
+    font-family: ;
    
 }
 
-#taskTitle {
-max-width:400px;
 
+.inputDescription {
+  text-decoration: black;
+  background-color: beige;
+  width: 560px;
+  padding-bottom: 40px;
+}
+
+.inputTitle {
+  text-decoration: black;
+  background-color: beige;
+  width: 560px;
+}
+
+.inputDate {
+  text-decoration: black;
+  background-color: beige;
+  width: 300px;
 }
