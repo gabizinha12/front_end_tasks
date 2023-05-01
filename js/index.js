@@ -48,3 +48,13 @@ function criarTarefa(){
   });
 };
 
+
+function atualizarTarefa() {
+  var form = $('#formAtualizar').serializeArray();
+
+}
+
+function deletarTarefa() {
+  
+}
+

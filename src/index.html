@@ -31,6 +31,16 @@
 
     </form>
 
+    <form id="formAtualizar" method="put" class="mainForm">
+        <div>
+            <input type="text" name="title" id="taskTitle" placeholder="Título" class="inputTitle">
+            <input type="text" name="description" id="taskTitle" placeholder="Descrição" class="inputDescription">
+            <input type="date" name="deadline" class="inputDate">
+            <input type="button" onClick="atualizarTarefa()" value="Atualizar tarefa"  class="buttonForm"/>
+        </div>
+
+    </form>
+
     <div id="tasksDiv"></div>
 </body>
 
