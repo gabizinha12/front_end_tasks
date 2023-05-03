@@ -11,11 +11,13 @@ function listarTarefas() {
       var ul = document.createElement("ul");
       for (var i in data) {
         var li = document.createElement("li");
+        var id = data[i].id;
         var pDescription = document.createElement("p");
         var pDeadline = document.createElement("p");
         li.innerHTML = JSON.stringify(data[i].title);
         pDescription.innerHTML = JSON.stringify(data[i].description);
         pDeadline.innerHTML = JSON.stringify(data[i].deadline);
+        
         ul.appendChild(li);
         ul.appendChild(pDescription);
         ul.appendChild(pDeadline);
@@ -50,11 +52,43 @@ function criarTarefa(){
 
 
 function atualizarTarefa() {
-  var form = $('#formAtualizar').serializeArray();
-
+  var form = $("#Idform").serializeArray();
+  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
+  var objJson= JSON.stringify(obj);
+  $.ajax({
+      async: true,
+      type: "PUT",
+      url: urlBase + "/task/update",
+      contentType: "application/json",
+      data: objJson,
+      success: function(data)
+      {
+        console.log(data);
+        window.location.reload();
+      },
+      error: function(err)
+      {
+        console.log(err);
+      }
+  });
 }
 
-function deletarTarefa() {
-  
+function deletarTarefa(id) {
+  $.ajax({
+    async: true,
+    type: "DELETE",
+    url: urlBase + `/delete/` + id,
+    contentType: "application/json",
+    data: JSON.stringify({id: id}),
+    success: function(data)
+    {
+      listarTarefas()
+      console.log(data);
+    },
+    error: function(err)
+    {
+      console.log(err);
+    }
+});
 }
 
