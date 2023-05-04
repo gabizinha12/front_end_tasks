@@ -14,9 +14,10 @@ function listarTarefas() {
         var li = document.createElement("li");
         var pDescription = document.createElement("p");
         var pDeadline = document.createElement("p");
-        li.innerHTML = JSON.stringify(data[i].title);
-        pDescription.innerHTML = JSON.stringify(data[i].description);
-        pDeadline.innerHTML = JSON.stringify(data[i].deadline);        
+        ul.id = data.id;
+        li.innerHTML = JSON.stringify(data.title);
+        pDescription.innerHTML = JSON.stringify(data.description);
+        pDeadline.innerHTML = JSON.stringify(data.deadline);        
         ul.appendChild(li);
         ul.appendChild(pDescription);
         ul.appendChild(pDeadline);
@@ -57,7 +58,7 @@ function atualizarTarefa() {
   $.ajax({
       async: true,
       type: "PUT",
-      url: urlBase + "/update/" + ,
+      url: urlBase + "/update/",
       contentType: "application/json",
       data: objJson,
       success: function(data)
