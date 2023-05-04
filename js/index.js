@@ -9,19 +9,21 @@ function listarTarefas() {
     success: function (data) {
       console.log(data);
       var ul = document.createElement("ul");
+      ul.id = "idList";
       for (var i in data) {
         var li = document.createElement("li");
-        var id = data[i].id;
         var pDescription = document.createElement("p");
         var pDeadline = document.createElement("p");
         li.innerHTML = JSON.stringify(data[i].title);
+        li.id = data[i].id;
         pDescription.innerHTML = JSON.stringify(data[i].description);
         pDeadline.innerHTML = JSON.stringify(data[i].deadline);
-        
         ul.appendChild(li);
         ul.appendChild(pDescription);
         ul.appendChild(pDeadline);
         tasksDiv.appendChild(ul);
+        var btnDelete = criarBtnDelete();
+        li.appendChild(btnDelete);
       }
       console.log(data);
     },
@@ -73,17 +75,18 @@ function atualizarTarefa() {
   });
 }
 
-function deletarTarefa(id) {
+function deletarTarefa() {
+  var li = $(this).parent();
+  var obj = {"id":li[0].id}
   $.ajax({
     async: true,
     type: "DELETE",
-    url: urlBase + `/delete/` + id,
+    url:  urlBase + "/delete/"+ li[0].id,   
     contentType: "application/json",
-    data: JSON.stringify({id: id}),
-    success: function(data)
+    data: obj,
+    success: function()
     {
-      listarTarefas()
-      console.log(data);
+      window.location.reload();
     },
     error: function(err)
     {
@@ -92,3 +95,10 @@ function deletarTarefa(id) {
 });
 }
 
+function criarBtnDelete(){
+  var btnDelete = document.createElement("input");
+  btnDelete.value = "Delete";
+  btnDelete.type = "button";
+  btnDelete.onclick = deletarTarefa;
+  return btnDelete;
+}
