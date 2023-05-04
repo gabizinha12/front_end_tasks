@@ -8,13 +8,13 @@ function listarTarefas() {
     dataType: "json",
     success: function (data) {
       console.log(data);
-      for (var i in data) {
+      let i = 0;
+      for (i in data) {
         var ul = document.createElement("ul");
         var li = document.createElement("li");
         var pDescription = document.createElement("p");
         var pDeadline = document.createElement("p");
         li.innerHTML = JSON.stringify(data[i].title);
-        li.id = data[i].id;
         pDescription.innerHTML = JSON.stringify(data[i].description);
         pDeadline.innerHTML = JSON.stringify(data[i].deadline);        
         ul.appendChild(li);
@@ -29,7 +29,7 @@ function listarTarefas() {
 
 function criarTarefa(){
   var form = $("#Idform").serializeArray();
-  var obj = {"id":form[0].value, "title": form[1].value, "description": form[2].value , "deadline": form[3].value}
+  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
   var objJson= JSON.stringify(obj);
   $.ajax({
       async: true,
@@ -52,7 +52,7 @@ function criarTarefa(){
 
 function atualizarTarefa() {
   var form = $("#Idform").serializeArray();
-  var obj = {"id": form[0].value, "title": form[1].value, "description": form[2].value , "deadline": form[3].value}
+  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
   var objJson= JSON.stringify(obj);
   $.ajax({
       async: true,
