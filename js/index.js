@@ -23,6 +23,8 @@ function listarTarefas() {
         ul.appendChild(pDeadline);
         tasksDiv.appendChild(ul);
         var btnDelete = criarBtnDelete();
+        var btnUpdate = criarBtnUpdate();
+        li.appendChild(btnUpdate);
         li.appendChild(btnDelete);
       }
       console.log(data);
@@ -57,10 +59,11 @@ function atualizarTarefa() {
   var form = $("#Idform").serializeArray();
   var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
   var objJson= JSON.stringify(obj);
+  var li = $(this).parent();
   $.ajax({
       async: true,
       type: "PUT",
-      url: urlBase + "/task/update",
+      url: urlBase + "/update/" + li[0].id,
       contentType: "application/json",
       data: objJson,
       success: function(data)
@@ -101,4 +104,12 @@ function criarBtnDelete(){
   btnDelete.type = "button";
   btnDelete.onclick = deletarTarefa;
   return btnDelete;
+}
+
+function criarBtnUpdate() {
+  var btnUpdate = document.createElement("input");
+  btnUpdate.value="Update"
+  btnUpdate.type = "button"
+  btnUpdate.onclick = atualizarTarefa;
+  return btnUpdate;
 }
