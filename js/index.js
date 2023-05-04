@@ -8,24 +8,19 @@ function listarTarefas() {
     dataType: "json",
     success: function (data) {
       console.log(data);
-      var ul = document.createElement("ul");
-      ul.id = "idList";
       for (var i in data) {
+        var ul = document.createElement("ul");
         var li = document.createElement("li");
         var pDescription = document.createElement("p");
         var pDeadline = document.createElement("p");
         li.innerHTML = JSON.stringify(data[i].title);
         li.id = data[i].id;
         pDescription.innerHTML = JSON.stringify(data[i].description);
-        pDeadline.innerHTML = JSON.stringify(data[i].deadline);
+        pDeadline.innerHTML = JSON.stringify(data[i].deadline);        
         ul.appendChild(li);
         ul.appendChild(pDescription);
         ul.appendChild(pDeadline);
         tasksDiv.appendChild(ul);
-        var btnDelete = criarBtnDelete();
-        var btnUpdate = criarBtnUpdate();
-        li.appendChild(btnUpdate);
-        li.appendChild(btnDelete);
       }
       console.log(data);
     },
@@ -34,7 +29,7 @@ function listarTarefas() {
 
 function criarTarefa(){
   var form = $("#Idform").serializeArray();
-  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
+  var obj = {"id":form[0].value, "title": form[1].value, "description": form[2].value , "deadline": form[3].value}
   var objJson= JSON.stringify(obj);
   $.ajax({
       async: true,
@@ -57,13 +52,12 @@ function criarTarefa(){
 
 function atualizarTarefa() {
   var form = $("#Idform").serializeArray();
-  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
+  var obj = {"id": form[0].value, "title": form[1].value, "description": form[2].value , "deadline": form[3].value}
   var objJson= JSON.stringify(obj);
-  var li = $(this).parent();
   $.ajax({
       async: true,
       type: "PUT",
-      url: urlBase + "/update/" + li[0].id,
+      url: urlBase + "/update/" + ,
       contentType: "application/json",
       data: objJson,
       success: function(data)
@@ -79,12 +73,11 @@ function atualizarTarefa() {
 }
 
 function deletarTarefa() {
-  var li = $(this).parent();
-  var obj = {"id":li[0].id}
+ 
   $.ajax({
     async: true,
     type: "DELETE",
-    url:  urlBase + "/delete/"+ li[0].id,   
+    url:  urlBase + "/delete/"+ id,   
     contentType: "application/json",
     data: obj,
     success: function()
@@ -96,20 +89,4 @@ function deletarTarefa() {
       console.log(err);
     }
 });
-}
-
-function criarBtnDelete(){
-  var btnDelete = document.createElement("input");
-  btnDelete.value = "Delete";
-  btnDelete.type = "button";
-  btnDelete.onclick = deletarTarefa;
-  return btnDelete;
-}
-
-function criarBtnUpdate() {
-  var btnUpdate = document.createElement("input");
-  btnUpdate.value="Update"
-  btnUpdate.type = "button"
-  btnUpdate.onclick = atualizarTarefa;
-  return btnUpdate;
 }
