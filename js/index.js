@@ -1,38 +1,42 @@
-var tasksDiv = document.getElementById("tasksDiv");
+var listaAtividades  = document.getElementById("listaAtividades");
 var urlBase = "http://localhost:8080/tasks"
 
 function listarTarefas() {
-  $.ajax({
-    url: "http://localhost:8080/tasks",
-    type: "get",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-   //   let i;
-      for (i in data) {
-        var ul = document.createElement("ul");
-        var li = document.createElement("li");
-        var pDescription = document.createElement("p");
-        var pDeadline = document.createElement("p");
-        ul.id = data[i].id;
-        ul.className = 'testId'
-        li.innerHTML = JSON.stringify(data[i].title);
-        pDescription.innerHTML = JSON.stringify(data[i].description);
-        pDeadline.innerHTML = JSON.stringify(data[i].deadline);        
-        ul.appendChild(li);
-        ul.appendChild(pDescription);
-        ul.appendChild(pDeadline);
-        tasksDiv.appendChild(ul);
+
+  $(listaAtividades).ready(function(){
+    $.ajax({url: "http://localhost:8080/tasks", type: "get", dataType: "json", 
+    success: function(response) {
+      var listaTasks = response;
+        console.log(response);
+        for(var i = 0; i < listaTasks.length; i++) {
+          var task = listaTasks[i];
+          const liId = document.createElement("li");
+          const title = document.createElement("p");
+          const description = document.createElement("p")
+          const deadline = document.createElement("p")
+          liId.id = task.id;
+          console.log(task.id)
+          title.innerHTML= `${task.title}`
+          description.innerHTML = `${task.description}`
+          deadline.innerHTML = `${task.deadline}`
+          title.innerHTML = `${task.title}`
+          listaAtividades.appendChild(title);
+          listaAtividades.appendChild(liId);
+          listaAtividades.appendChild(description);
+          listaAtividades.appendChild(deadline);
+
+        }
       }
-      console.log(data);
-    },
+    })
   });
-}
+};
+
 
 function criarTarefa(){
   var form = $("#Idform").serializeArray();
   var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
   var objJson= JSON.stringify(obj);
+  console.log(obj)
   $.ajax({
       async: true,
       type: "POST",
@@ -91,6 +95,4 @@ function deletarTarefa(id) {
       console.log(err);
     }
 });
-}
-
 }

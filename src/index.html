@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tasks</title>
-    <script type="text/javascript" src="../js/index.js" defer></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,112 +25,25 @@
             <input type="text" name="title" id="taskTitle" placeholder="Título" class="inputTitle">
             <input type="text" name="description" id="taskTitle" placeholder="Descrição" class="inputDescription">
             <input type="date" name="deadline" class="inputDate">
-            <input type="button" onClick="criarTarefa()" value="Criar tarefa"  class="buttonForm"/>
+            <input type="button" onClick="criarTarefa()" value="Criar tarefa" class="buttonForm" />
         </div>
 
     </form>
 
-    <div id="tasksDiv">
+    <div>
+        <ul id="listaAtividades">
 
+        </ul>
 
-        <input type="button" onClick="atualizarTarefa()" value="Atualizar tarefa"  class="buttonForm" id="buttonAtualizar"/>
-        <input type="button" onClick="deletarTarefa()" value="Deletar tarefa"  class="buttonForm" id="buttonDeletar"/>
+        <input type="button" onClick="atualizarTarefa()" value="Atualizar tarefa" class="buttonForm"
+            id="buttonAtualizar" />
+        <input type="button" onClick="deletarTarefa()" value="Deletar tarefa" class="buttonForm" id="buttonDeletar" />
 
     </div>
+    <script type="text/javascript" src="../js/index.js" async defer></script>
 </body>
 <script>
-// var tasksDiv = document.getElementById("tasksDiv");
-// var urlBase = "http://localhost:8080/tasks"
-
-// function listarTarefas() {
-//   $.ajax({
-//     url: "http://localhost:8080/tasks",
-//     type: "get",
-//     dataType: "json",
-//     success: function (data) {
-//       console.log(data);
-//       for (var i in data) {
-//         var ul = document.createElement("ul");
-//         var li = document.createElement("li");
-//         var pDescription = document.createElement("p");
-//         var pDeadline = document.createElement("p");
-//         li.innerHTML = JSON.stringify(data[i].title);
-//         li.id = data[i].id;
-//         pDescription.innerHTML = JSON.stringify(data[i].description);
-//         pDeadline.innerHTML = JSON.stringify(data[i].deadline);
-//         ul.appendChild(li);
-//         ul.appendChild(pDescription);
-//         ul.appendChild(pDeadline);
-//         tasksDiv.appendChild(ul);
-//       }
-//       console.log(data);
-//     },
-//   });
-// }
-
-// function criarTarefa(){
-//   let form = $("#Idform").serializeArray();
-//   let obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
-//   const objJson= JSON.stringify(obj);
-//   $.ajax({
-//       async: true,
-//       type: "POST",
-//       url: urlBase + "/task/create",
-//       contentType: "application/json",
-//       data: objJson,
-//       success: function(data)
-//       {
-//         console.log(data);
-//         window.location.reload();
-//       },
-//       error: function(err)
-//       {
-//         console.log(err);
-//       }
-//   });
-// };
-
-
-// function atualizarTarefa() {
-//   var form = $("#Idform").serializeArray();
-//   var obj = {"id": form[0].value, "title": form[1].value, "description": form[2].value , "deadline": form[3].value}
-//   var objJson= JSON.stringify(obj);
-//   $.ajax({
-//       async: true,
-//       type: "PUT",
-//       url: urlBase + "/update/" + obj.id,
-//       contentType: "application/json",
-//       data: objJson,
-//       success: function(data)
-//       {
-//         console.log(data);
-//         window.location.reload();
-//       },
-//       error: function(err)
-//       {
-//         console.log(err);
-//       }
-//   });
-// }
-
-// function deletarTarefa() {
-
-//   $.ajax({
-//     async: true,
-//     type: "DELETE",
-//     url:  urlBase + "/delete/"+ id,
-//     contentType: "application/json",
-//     data: obj,
-//     success: function()
-//     {
-//       window.location.reload();
-//     },
-//     error: function(err)
-//     {
-//       console.log(err);
-//     }
-// });
-// }
+   
 </script>
 
 </html>
