@@ -1,98 +1,139 @@
-var listaAtividades  = document.getElementById("listaAtividades");
-var urlBase = "http://localhost:8080/tasks"
+var listaAtividades = document.getElementById("listaAtividades");
+var urlBase = "http://localhost:8080/tasks";
 
 function listarTarefas() {
-
-  $(listaAtividades).ready(function(){
-    $.ajax({url: "http://localhost:8080/tasks", type: "get", dataType: "json", 
-    success: function(response) {
-      var listaTasks = response;
+  $(listaAtividades).ready(function () {
+    $.ajax({
+      url: "http://localhost:8080/tasks",
+      type: "get",
+      dataType: "json",
+      success: function (response) {
+        var listaTasks = response;
         console.log(response);
-        for(var i = 0; i < listaTasks.length; i++) {
+        for (var i = 0; i < listaTasks.length; i++) {
           var task = listaTasks[i];
-          const liId = document.createElement("li");
+          const ulId = document.createElement("ul");
           const title = document.createElement("p");
-          const description = document.createElement("p")
-          const deadline = document.createElement("p")
-          liId.id = task.id;
-          console.log(task.id)
-          title.innerHTML= `${task.title}`
-          description.innerHTML = `${task.description}`
-          deadline.innerHTML = `${task.deadline}`
-          title.innerHTML = `${task.title}`
+          const description = document.createElement("p");
+          const deadline = document.createElement("p");
+          title.innerHTML = `${task.title}`;
+          description.innerHTML = `${task.description}`;
+          deadline.innerHTML = `${task.deadline}`;
+          title.innerHTML = `${task.title}`;
+          ulId.id = task.id;
+          const botaoDelete = criaBotaoDelete();
+          const botaoUpdate = criaBotaoUpdate();
+          criaBotaoUpdate();          
+          pegaIdTarefa();
           listaAtividades.appendChild(title);
-          listaAtividades.appendChild(liId);
+          listaAtividades.appendChild(ulId);
           listaAtividades.appendChild(description);
           listaAtividades.appendChild(deadline);
-
+          listaAtividades.appendChild(botaoDelete);
+          listaAtividades.appendChild(botaoUpdate);
         }
-      }
-    })
-  });
-};
-
-
-function criarTarefa(){
-  var form = $("#Idform").serializeArray();
-  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
-  var objJson= JSON.stringify(obj);
-  console.log(obj)
-  $.ajax({
-      async: true,
-      type: "POST",
-      url: urlBase + "/task/create",
-      contentType: "application/json",
-      data: objJson,
-      success: function(data)
-      {
-        console.log(data);
-        window.location.reload();
       },
-      error: function(err)
-      {
-        console.log(err);
-      }
+    });
   });
-};
+}
+function pegaIdTarefa() {
+  $.ajax({
+    url: "http://localhost:8080/tasks",
+    type: "get",
+    dataType: "json",
+    success: function (response) {
+      var listaTasks = response;
+      console.log(response);
+      for (var i = 0; i < listaTasks.length; i++) {
+        var task = listaTasks[i];
+        const taskId = task.id;
+        console.log(taskId);      
+      }
+      atualizarTarefa(response.id)
+    },
+  });
+}
 
+
+function criarTarefa() {
+  var form = $("#Idform").serializeArray();
+  var obj = {
+    title: form[0].value,
+    description: form[1].value,
+    deadline: form[2].value,
+  };
+  var objJson = JSON.stringify(obj);
+  console.log(obj);
+  $.ajax({
+    async: true,
+    type: "POST",
+    url: urlBase + "/task/create",
+    contentType: "application/json",
+    data: objJson,
+    success: function (data) {
+      console.log(data);
+      window.location.reload();
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
 
 function atualizarTarefa(id) {
   var form = $("#Idform").serializeArray();
-  var obj = {"title": form[0].value, "description": form[1].value , "deadline": form[2].value}
-  var objJson= JSON.stringify(obj);
+  var obj = {
+    title: form[0].value,
+    description: form[1].value,
+    deadline: form[2].value,
+  };
+  var objJson = JSON.stringify(obj);
   $.ajax({
-      async: true,
-      type: "PUT",
-      url: urlBase + "/update/" + id,
-      contentType: "application/json",
-      data: objJson,
-      success: function(data)
-      {
-        console.log(data);
-        window.location.reload();
-      },
-      error: function(err)
-      {
-        console.log(err);
-      }
+    async: true,
+    type: "PUT",
+    crossDomain: true,
+    url: urlBase + "/update/" + id,
+    contentType: "application/json",
+    data: objJson,
+    success: function (data) {
+      console.log(data);
+      window.location.reload();
+    },
+    error: function (err) {
+      console.log(err);
+    },
   });
 }
 
 function deletarTarefa(id) {
- 
   $.ajax({
     async: true,
     type: "DELETE",
-    url:  urlBase + "/delete/"+ id,   
+    crossDomain: true,
+    url: urlBase + "/delete/" + id,
     contentType: "application/json",
-    data: obj,
-    success: function()
-    {
+    success: function () {
       window.location.reload();
     },
-    error: function(err)
-    {
+    error: function (err) {
       console.log(err);
-    }
-});
+    },
+  });
+}
+
+
+function criaBotaoDelete() {
+  const deleteButton = document.createElement("input");
+  deleteButton.value = "Deletar tarefa";
+  deleteButton.type = "button";
+  deleteButton.onclick = deletarTarefa;
+  return deleteButton;
+}
+
+function criaBotaoUpdate() {
+  const updateButton = document.createElement("input");
+  updateButton.value = "Atualizar tarefa";
+  updateButton.type = "button";
+  updateButton.onclick = atualizarTarefa;
+  return updateButton;
 }
