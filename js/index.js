@@ -18,20 +18,17 @@ function listAllTasks() {
           liDeadline.innerHTML += `${response[i].deadline}`;
           ul.id = `${response[i].id}`;
 
-
           const btnDelete = createDeleteButton();
           const btnUpdate = createUpdateButton();
-          listTasks.appendChild(ul)
+          listTasks.appendChild(ul);
           listTasks.appendChild(liTitle);
           listTasks.appendChild(liDescription);
           listTasks.appendChild(liDeadline);
           listTasks.appendChild(btnDelete);
           listTasks.appendChild(btnUpdate);
           // const array = Array.from(element)
-          var element = $("ul").attr("id")
-          console.log(element[0])
-
-
+          var element = $("ul").attr("id");
+          console.log(element);
         }
       },
       error: function (err) {
@@ -74,6 +71,7 @@ function updateTask(id) {
     deadline: form[2].value,
   };
   var objJson = JSON.stringify(obj);
+ // const taskId = getULid();
   $.ajax({
     async: true,
     type: "PUT",
@@ -91,12 +89,13 @@ function updateTask(id) {
   });
 }
 
-function deleteTask(id) {
+function deleteTask() {
+  const taskId = getULid();
   $.ajax({
     async: true,
     type: "DELETE",
     crossDomain: true,
-    url: urlBase + "/delete/" + id,
+    url: urlBase + "/delete/" + taskId,
     contentType: "application/json",
     success: function () {
       console.log("Tarefa deletada com sucesso");
@@ -128,11 +127,7 @@ function createUpdateButton() {
   return btnUpdate;
 }
 
-
 function getULid() {
-  let element = $("ul").attr("id")
-  element.map(function(el) {
-  return el.id;
-  });
-
- }
+  let element = $("ul").attr("id");
+  return element;
+}
