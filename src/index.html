@@ -18,22 +18,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 
-<body onload="listarTarefas()">
+<body onload="listAllTasks()">
     <h1>My Tasks</h1>
     <form id="Idform" method="post" class="mainForm">
         <div>
             <input type="text" name="title" id="taskTitle" placeholder="Título" class="inputTitle">
             <input type="text" name="description" id="taskTitle" placeholder="Descrição" class="inputDescription">
             <input type="date" name="deadline" class="inputDate">
-            <input type="button" onClick="criarTarefa()" value="Criar tarefa" class="buttonForm" />
+            <input type="button" onClick="createTask()" value="Criar tarefa" class="buttonForm" />
         </div>
 
     </form>
 
-    <div>
-        <ul id="listaAtividades">
-
-        </ul>
+    <div id="listTasks">
+    
 
       
 

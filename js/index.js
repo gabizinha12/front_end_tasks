@@ -1,61 +1,47 @@
-var listaAtividades = document.getElementById("listaAtividades");
-var urlBase = "http://localhost:8080/tasks";
+var urlBase = `http://localhost:8080/tasks`;
 
-function listarTarefas() {
-  $(listaAtividades).ready(function () {
+function listAllTasks() {
+  $(document).ready(function () {
     $.ajax({
       url: "http://localhost:8080/tasks",
       type: "get",
       dataType: "json",
       success: function (response) {
-        var listaTasks = response;
-        console.log(response);
-        for (var i = 0; i < listaTasks.length; i++) {
-          var task = listaTasks[i];
-          const ulId = document.createElement("ul");
-          const title = document.createElement("p");
-          const description = document.createElement("p");
-          const deadline = document.createElement("p");
-          title.innerHTML = `${task.title}`;
-          description.innerHTML = `${task.description}`;
-          deadline.innerHTML = `${task.deadline}`;
-          title.innerHTML = `${task.title}`;
-          ulId.id = task.id;
-          const botaoDelete = criaBotaoDelete();
-          const botaoUpdate = criaBotaoUpdate();
-          criaBotaoUpdate();          
-          pegaIdTarefa();
-          listaAtividades.appendChild(title);
-          listaAtividades.appendChild(ulId);
-          listaAtividades.appendChild(description);
-          listaAtividades.appendChild(deadline);
-          listaAtividades.appendChild(botaoDelete);
-          listaAtividades.appendChild(botaoUpdate);
+        const listTasks = document.getElementById("listTasks");
+        for (var i in response) {
+          const liTitle = document.createElement("li");
+          const liDescription = document.createElement("li");
+          const liDeadline = document.createElement("li");
+          const ul = document.createElement("ul");
+          liDescription.innerHTML += `${response[i].description}`;
+          liTitle.innerHTML += `${response[i].title}`;
+          liDeadline.innerHTML += `${response[i].deadline}`;
+          ul.id = `${response[i].id}`;
+
+
+          const btnDelete = createDeleteButton();
+          const btnUpdate = createUpdateButton();
+          listTasks.appendChild(ul)
+          listTasks.appendChild(liTitle);
+          listTasks.appendChild(liDescription);
+          listTasks.appendChild(liDeadline);
+          listTasks.appendChild(btnDelete);
+          listTasks.appendChild(btnUpdate);
+          // const array = Array.from(element)
+          var element = $("ul").attr("id")
+          console.log(element[0])
+
+
         }
+      },
+      error: function (err) {
+        console.log(err);
       },
     });
   });
 }
-function pegaIdTarefa() {
-  $.ajax({
-    url: "http://localhost:8080/tasks",
-    type: "get",
-    dataType: "json",
-    success: function (response) {
-      var listaTasks = response;
-      console.log(response);
-      for (var i = 0; i < listaTasks.length; i++) {
-        var task = listaTasks[i];
-        const taskId = task.id;
-        console.log(taskId);      
-      }
-      atualizarTarefa(response.id)
-    },
-  });
-}
 
-
-function criarTarefa() {
+function createTask() {
   var form = $("#Idform").serializeArray();
   var obj = {
     title: form[0].value,
@@ -80,7 +66,7 @@ function criarTarefa() {
   });
 }
 
-function atualizarTarefa(id) {
+function updateTask(id) {
   var form = $("#Idform").serializeArray();
   var obj = {
     title: form[0].value,
@@ -105,7 +91,7 @@ function atualizarTarefa(id) {
   });
 }
 
-function deletarTarefa(id) {
+function deleteTask(id) {
   $.ajax({
     async: true,
     type: "DELETE",
@@ -113,6 +99,8 @@ function deletarTarefa(id) {
     url: urlBase + "/delete/" + id,
     contentType: "application/json",
     success: function () {
+      console.log("Tarefa deletada com sucesso");
+      listAllTasks();
       window.location.reload();
     },
     error: function (err) {
@@ -121,19 +109,30 @@ function deletarTarefa(id) {
   });
 }
 
-
-function criaBotaoDelete() {
-  const deleteButton = document.createElement("input");
-  deleteButton.value = "Deletar tarefa";
-  deleteButton.type = "button";
-  deleteButton.onclick = deletarTarefa;
-  return deleteButton;
+function createDeleteButton() {
+  var btnDelete = document.createElement("input");
+  btnDelete.value = "Delete";
+  btnDelete.type = "button";
+  btnDelete.title = "Delete";
+  btnDelete.className = "buttonForm";
+  btnDelete.onclick = deleteTask;
+  return btnDelete;
 }
 
-function criaBotaoUpdate() {
-  const updateButton = document.createElement("input");
-  updateButton.value = "Atualizar tarefa";
-  updateButton.type = "button";
-  updateButton.onclick = atualizarTarefa;
-  return updateButton;
+function createUpdateButton() {
+  var btnUpdate = document.createElement("input");
+  btnUpdate.value = "Update";
+  btnUpdate.type = "button";
+  btnUpdate.className = "buttonForm";
+  btnUpdate.onclick = updateTask;
+  return btnUpdate;
 }
+
+
+function getULid() {
+  let element = $("ul").attr("id")
+  element.map(function(el) {
+  return el.id;
+  });
+
+ }
