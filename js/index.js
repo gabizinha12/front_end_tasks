@@ -1,7 +1,9 @@
-var urlBase = `http://localhost:8080/tasks`;
+let urlBase = `http://localhost:8080/tasks`;
+let listIds = [];
 
 function listAllTasks() {
   $(document).ready(function () {
+    listIds = [];
     $.ajax({
       url: "http://localhost:8080/tasks",
       type: "get",
@@ -27,8 +29,7 @@ function listAllTasks() {
           listTasks.appendChild(btnDelete);
           listTasks.appendChild(btnUpdate);
           // const array = Array.from(element)
-          var element = $("ul").attr("id");
-          console.log(element);
+         
         }
       },
       error: function (err) {
@@ -63,7 +64,7 @@ function createTask() {
   });
 }
 
-function updateTask(id) {
+function updateTask() {
   var form = $("#Idform").serializeArray();
   var obj = {
     title: form[0].value,
@@ -71,7 +72,8 @@ function updateTask(id) {
     deadline: form[2].value,
   };
   var objJson = JSON.stringify(obj);
- // const taskId = getULid();
+  let id = getULid();
+  console.log(id);
   $.ajax({
     async: true,
     type: "PUT",
@@ -81,7 +83,7 @@ function updateTask(id) {
     data: objJson,
     success: function (data) {
       console.log(data);
-      window.location.reload();
+      // window.location.reload();
     },
     error: function (err) {
       console.log(err);
@@ -90,12 +92,13 @@ function updateTask(id) {
 }
 
 function deleteTask() {
-  const taskId = getULid();
+  const {id} = getULid();
+  console.log(id);
   $.ajax({
     async: true,
     type: "DELETE",
     crossDomain: true,
-    url: urlBase + "/delete/" + taskId,
+    url: urlBase + "/delete/" + id,
     contentType: "application/json",
     success: function () {
       console.log("Tarefa deletada com sucesso");
@@ -128,6 +131,12 @@ function createUpdateButton() {
 }
 
 function getULid() {
-  let element = $("ul").attr("id");
-  return element;
+  $("ul li").each(function (i) {
+    var id = $(this).attr("id");
+    listIds.push(id);
+    console.log(id);
+    console.log(listIds);
+
+  });
+
 }
