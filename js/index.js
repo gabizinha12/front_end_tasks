@@ -9,28 +9,16 @@ function listAllTasks() {
       type: "get",
       dataType: "json",
       success: function (response) {
-        const listTasks = document.getElementById("listTasks");
-        for (var i in response) {
-          const liTitle = document.createElement("li");
-          const liDescription = document.createElement("li");
-          const liDeadline = document.createElement("li");
-          const ul = document.createElement("ul");
-          liDescription.innerHTML += `${response[i].description}`;
-          liTitle.innerHTML += `${response[i].title}`;
-          liDeadline.innerHTML += `${response[i].deadline}`;
-          ul.id = `${response[i].id}`;
-
-          const btnDelete = createDeleteButton();
-          const btnUpdate = createUpdateButton();
-          listTasks.appendChild(ul);
-          listTasks.appendChild(liTitle);
-          listTasks.appendChild(liDescription);
-          listTasks.appendChild(liDeadline);
-          listTasks.appendChild(btnDelete);
-          listTasks.appendChild(btnUpdate);
-          // const array = Array.from(element)
-         
+        const $listTasks = document.getElementById("listTasks");
+        for (let i in response) {
+          let id = response[i].id;
+          listIds.push[id];
+        
+          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li>,<li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${getULid(listIds[i])})">Apagar</button></div>`;
+          $listTasks.insertAdjacentHTML("afterbegin", $data);
         }
+      //  $listTasks.append(btnDelete, btnUpdate);
+
       },
       error: function (err) {
         console.log(err);
@@ -72,8 +60,6 @@ function updateTask() {
     deadline: form[2].value,
   };
   var objJson = JSON.stringify(obj);
-  let id = getULid();
-  console.log(id);
   $.ajax({
     async: true,
     type: "PUT",
@@ -92,8 +78,9 @@ function updateTask() {
 }
 
 function deleteTask() {
-  const {id} = getULid();
-  console.log(id);
+  let id = getULid();
+  // listIds.push(id);
+  console.log(id)
   $.ajax({
     async: true,
     type: "DELETE",
@@ -103,7 +90,7 @@ function deleteTask() {
     success: function () {
       console.log("Tarefa deletada com sucesso");
       listAllTasks();
-      window.location.reload();
+     // window.location.reload();
     },
     error: function (err) {
       console.log(err);
@@ -131,12 +118,8 @@ function createUpdateButton() {
 }
 
 function getULid() {
-  $("ul li").each(function (i) {
+  $("ul li").each(function () {
     var id = $(this).attr("id");
-    listIds.push(id);
-    console.log(id);
-    console.log(listIds);
-
+    return id;
   });
-
 }
