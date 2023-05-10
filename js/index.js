@@ -14,7 +14,7 @@ function listAllTasks() {
           let id = response[i].id;
           listIds.push[id];
         
-          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li>,<li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${id})" class="buttonForm">Apagar</button></div>`;
+          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li><li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${id})" class="buttonForm">Apagar</button></div>`;
           $listTasks.insertAdjacentHTML("afterbegin", $data);
         }
 
