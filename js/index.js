@@ -14,10 +14,9 @@ function listAllTasks() {
           let id = response[i].id;
           listIds.push[id];
         
-          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li>,<li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${getULid(listIds[i])})">Apagar</button></div>`;
+          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li>,<li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${id})" class="buttonForm">Apagar</button></div>`;
           $listTasks.insertAdjacentHTML("afterbegin", $data);
         }
-      //  $listTasks.append(btnDelete, btnUpdate);
 
       },
       error: function (err) {
@@ -52,7 +51,8 @@ function createTask() {
   });
 }
 
-function updateTask() {
+function updateTask(id) {
+  // todo: Ver como sobrescrever a tarefa já existente impressa no DOM
   var form = $("#Idform").serializeArray();
   var obj = {
     title: form[0].value,
@@ -77,9 +77,7 @@ function updateTask() {
   });
 }
 
-function deleteTask() {
-  let id = getULid();
-  // listIds.push(id);
+function deleteTask(id) {
   console.log(id)
   $.ajax({
     async: true,
@@ -90,7 +88,7 @@ function deleteTask() {
     success: function () {
       console.log("Tarefa deletada com sucesso");
       listAllTasks();
-     // window.location.reload();
+     window.location.reload();
     },
     error: function (err) {
       console.log(err);
@@ -98,15 +96,15 @@ function deleteTask() {
   });
 }
 
-function createDeleteButton() {
-  var btnDelete = document.createElement("input");
-  btnDelete.value = "Delete";
-  btnDelete.type = "button";
-  btnDelete.title = "Delete";
-  btnDelete.className = "buttonForm";
-  btnDelete.onclick = deleteTask;
-  return btnDelete;
-}
+// function createDeleteButton() {
+//   var btnDelete = document.createElement("input");
+//   btnDelete.value = "Delete";
+//   btnDelete.type = "button";
+//   btnDelete.title = "Delete";
+//   btnDelete.className = "buttonForm";
+//   btnDelete.onclick = deleteTask;
+//   return btnDelete;
+// }
 
 function createUpdateButton() {
   var btnUpdate = document.createElement("input");
