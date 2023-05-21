@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tasks</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +15,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
 </head>
 
 <body onload="listAllTasks()">
-    <h1>My Tasks</h1>
+    <h1 class="center-title">My Tasks</h1>
     <form id="Idform" method="post" class="mainForm">
         <div>
             <input type="text" name="title" id="taskTitle" placeholder="Título" class="inputTitle">
@@ -36,6 +37,7 @@
       
 
     </div>
+  
     <script type="text/javascript" src="../js/index.js" async defer></script>
 </body>
 <script>

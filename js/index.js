@@ -1,5 +1,6 @@
 let urlBase = `http://localhost:8080/tasks`;
 let listIds = [];
+let obj = {};
 
 function listAllTasks() {
   $(document).ready(function () {
@@ -13,8 +14,7 @@ function listAllTasks() {
         for (let i in response) {
           let id = response[i].id;
           listIds.push[id];
-        
-          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li><li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${id})" class="buttonForm">Apagar</button></div>`;
+          const $data = `<div id={${response[i].id}}><ul><li>${response[i].title}</li><li>${response[i].description}</li> <li>${response[i].deadline}</li></ul><button onclick="deleteTask(${id})" class="buttonForm">Apagar</button><button onclick="updateTask(${id})" class="buttonForm">Atualizar</button></div>`;
           $listTasks.insertAdjacentHTML("afterbegin", $data);
         }
 
@@ -42,8 +42,13 @@ function createTask() {
     contentType: "application/json",
     data: objJson,
     success: function (data) {
-      console.log(data);
-      window.location.reload();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Tarefa criada com sucesso',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
     error: function (err) {
       console.log(err);
@@ -54,10 +59,9 @@ function createTask() {
 function updateTask(id) {
   // todo: Ver como sobrescrever a tarefa já existente impressa no DOM
   var form = $("#Idform").serializeArray();
-  var obj = {
-    title: form[0].value,
-    description: form[1].value,
-    deadline: form[2].value,
+  obj = {title: form[0].value,
+  description: form[1].value,
+  deadline: form[2].value
   };
   var objJson = JSON.stringify(obj);
   $.ajax({
@@ -68,8 +72,13 @@ function updateTask(id) {
     contentType: "application/json",
     data: objJson,
     success: function (data) {
-      console.log(data);
-      // window.location.reload();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Tarefa atualizada com sucesso',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
     error: function (err) {
       console.log(err);
@@ -86,9 +95,13 @@ function deleteTask(id) {
     url: urlBase + "/delete/" + id,
     contentType: "application/json",
     success: function () {
-      console.log("Tarefa deletada com sucesso");
-      listAllTasks();
-     window.location.reload();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Tarefa deletada com sucesso',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
     error: function (err) {
       console.log(err);
@@ -96,28 +109,3 @@ function deleteTask(id) {
   });
 }
 
-// function createDeleteButton() {
-//   var btnDelete = document.createElement("input");
-//   btnDelete.value = "Delete";
-//   btnDelete.type = "button";
-//   btnDelete.title = "Delete";
-//   btnDelete.className = "buttonForm";
-//   btnDelete.onclick = deleteTask;
-//   return btnDelete;
-// }
-
-function createUpdateButton() {
-  var btnUpdate = document.createElement("input");
-  btnUpdate.value = "Update";
-  btnUpdate.type = "button";
-  btnUpdate.className = "buttonForm";
-  btnUpdate.onclick = updateTask;
-  return btnUpdate;
-}
-
-function getULid() {
-  $("ul li").each(function () {
-    var id = $(this).attr("id");
-    return id;
-  });
-}

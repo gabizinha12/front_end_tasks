@@ -1,9 +1,13 @@
 .mainForm {
-  max-width: fit-content;
   margin: auto;
+  width: 670px;
 }
- body, *{
-    font-family: 'Roboto', sans-serif;
+
+body,
+* {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+
 }
 
 .labelField {
@@ -12,33 +16,46 @@
 }
 
 .buttonForm {
-    background-color: burlywood;
-    border-radius: 50px;
-    border-color: burlywood;
-    margin-top: 30px;
-    font-size: 15px;
-    width:90px;
-    margin-right: 10px;
-   
+  background-color: #3addbe;
+  border-radius: 50px;
+  border-color: #3addbe;
+  margin-top: 30px;
+  font-size: 15px;
+  width: 90px;
+  margin-right: 30px;
+  margin-left: 20px;
+
+
 }
 
 
 .inputDescription {
   text-decoration: black;
-  background-color: beige;
+  background-color: white;
   width: 560px;
   padding-bottom: 40px;
+  margin-top: 20px;
+  border-radius: 50px;
+  border-color: black;
 }
 
 .inputTitle {
   text-decoration: black;
-  background-color: beige;
+  background-color: white;
+  border-radius: 50px;
+  border-color: black;
   width: 560px;
 }
 
 .inputDate {
   text-decoration: black;
-  background-color: beige;
+  background-color: white;
+  border-radius: 50px;
+  border-color: black;
   width: 300px;
+
 }
 
+.center-title {
+  text-align: center;
+}
