@@ -1,6 +1,5 @@
 let urlBase = `http://localhost:8080/tasks`;
 let listIds = [];
-let obj = {};
 
 function listAllTasks() {
   $(document).ready(function () {
@@ -49,6 +48,8 @@ function createTask() {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload();
+
     },
     error: function (err) {
       console.log(err);
@@ -59,7 +60,7 @@ function createTask() {
 function updateTask(id) {
   // todo: Ver como sobrescrever a tarefa já existente impressa no DOM
   var form = $("#Idform").serializeArray();
-  obj = {title: form[0].value,
+  var obj = {title: form[0].value,
   description: form[1].value,
   deadline: form[2].value
   };
@@ -79,6 +80,7 @@ function updateTask(id) {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload();
     },
     error: function (err) {
       console.log(err);
@@ -102,6 +104,8 @@ function deleteTask(id) {
         showConfirmButton: false,
         timer: 1500
       })
+      window.location.reload();
+
     },
     error: function (err) {
       console.log(err);
