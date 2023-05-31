@@ -33,6 +33,7 @@ function createTask() {
     deadline: form[2].value,
   };
   var objJson = JSON.stringify(obj);
+  formatDate(obj.deadline);
   console.log(obj);
   $.ajax({
     async: true,
@@ -48,6 +49,7 @@ function createTask() {
         showConfirmButton: false,
         timer: 1500
       })
+      
       window.location.reload();
 
     },
@@ -65,6 +67,8 @@ function updateTask(id) {
   deadline: form[2].value
   };
   var objJson = JSON.stringify(obj);
+  formatDate(obj.deadline);
+
   $.ajax({
     async: true,
     type: "PUT",
@@ -113,3 +117,6 @@ function deleteTask(id) {
   });
 }
 
+function formatDate(str) {
+return  moment().format(str);
+} 
