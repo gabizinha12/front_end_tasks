@@ -1,11 +1,11 @@
-let urlBase = `http://localhost:8080/tasks`;
+let urlBase = `tasks-api-production-84ef.up.railway.app/tasks`;
 let listIds = [];
 
 function listAllTasks() {
   $(document).ready(function () {
     listIds = [];
     $.ajax({
-      url: "http://localhost:8080/tasks",
+      url: urlBase,
       type: "get",
       dataType: "json",
       success: function (response) {
